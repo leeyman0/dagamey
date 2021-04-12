@@ -1,0 +1,13 @@
+* Welcome to dagamey
+  Here at Dagamey, inc. we don't really care about our users too much. Other companies are afraid to admit this,
+  but here at Dagamey, we aren't like other companies. By using this software, all users absolve us of any war crimes,
+  illegal multi-level-marketing schema, coercive organ donations, arson, or any crimes that this software may commit.
+* Structure And Interpretation of dagamey
+  dagamey follows a very simple architecture:
+  - All asset (eg. audio, video, picture) files are in the ~./Assets~ folder
+  - All code for the program of dagamey is in ~./dagamey.js~
+  - A lesson is stored as an array of JSON that utilizes the ~question(qtype, qdata, qans)~ constructor function
+    for each element.
+  - Lessons are compiled into HTML by using the ~generate_lesson(lesson_data, div)~ function, where ~lesson_data~ is
+    the array of JSON for the lesson, and ~div~ is the HTML element that one would like the lesson generated in.
+  - ~index.html~ is a small program that utilizes dagamey. Try it for yourself!
