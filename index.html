@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="ASCII">
+  <head>
+<title>GameDebug</title>
+</head>
+<body>
+  <h1>GameDebug</h1>
+  <div id="quiz"> </div>
+  <script src="./dagamey.js"></script>
+  <script>
+    let quiz_window = document.getElementById("quiz");
+
+    let lesson = [
+	question(QuestionType.MULT_CHOICE,
+		 ["What is your favorite color?",
+		  "Green",
+		  "Blue",
+		  "Yellow"],
+		 2),
+	question(QuestionType.MULT_CHOICE,
+		 ["What is Obama's last name?",
+		  "amabO",
+		  "bin Laden",
+		  "Jef",
+		  "Barack"],
+		 3),
+	question(QuestionType.MULT_CHOICE,
+		 ["What is your social security number?",
+		  "420-69-7890",
+		  "123-45-6789",
+		  "484-36-2342"],
+		 2),
+	question(QuestionType.BLANK_FILL,
+		 [["What is the answer to ", "? The answer is ", "."],
+		  // the spaces in-between are where the selections go
+		  ["life",
+		   "the question of everything",
+		   "this math problem that I found"],
+		  ["34", "45", "22", "42"],
+		 ],
+		 [0, 3]), // The answer
+	question(QuestionType.BLANK_FILL,
+		 [["", " = ", "+", ""],
+		  [7, 6, 5, 4],
+		  [3, 2, 1],
+		  [1, 0, -1]],
+		 [3, 0, 0]),
+	question(QuestionType.MATCHING,
+		 [["Rapper:", "Programmer:", "Scientist:"],
+		  ["Torvalds", "Dababy", "Einstein"]],
+		 [1, 0, 2]),
+    ];
+
+    let lesson_html = generate_lesson(lesson, quiz_window);
+    
+  </script>
+</body>
+</html>

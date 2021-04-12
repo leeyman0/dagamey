@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<title>GameDebug</title>
+</head>
+<body>
+  <h1>GameDebug</h1>
+  <div id="quiz"> </div>
+  <script src="./dagamey.js">
+    let lesson = document.getElementByID("quiz");
+
+    
+  </script>
+</body>
+</html>
