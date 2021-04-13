@@ -11,3 +11,5 @@
   - Lessons are compiled into HTML by using the ~generate_lesson(lesson_data, div)~ function, where ~lesson_data~ is
     the array of JSON for the lesson, and ~div~ is the HTML element that one would like the lesson generated in.
   - ~index.html~ is a small program that utilizes dagamey. Try it for yourself!
+  - To use this library, put ~<script src="/path/to/dagamey.js"></script>~ in your HTML somewhere. Write your driver
+    code in an empty ~<script>~ tag below!
