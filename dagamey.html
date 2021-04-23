@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lesson Window</title>
+  </head>
+  <body>
+    <div id="game_window"></div>
+    <script src="./dagamey.js"></script>
+    <script>
+      // This is where the code that connects the database to the game engine to the website is
+      let exit_button = document.createElement("button");
+      exit_button.id = "exit_button";
+      let game_window = document.getElementById("game_window");
+      // First, supply the selection of the lesson
+      // All we really need to retrieve is the number of lessons in the database
+      // Some user data would be nice as well, like the completion level
+      window.addEventListener("load", function () {
+	  let database_request = new XMLHttpRequest();
+	  database_request.open("POST", "1b-database.php");
+      });
+      let number_of_lessons = 10; // This should be set to something different
+      // Perhaps a name would be nice too
+      let lesson_selection = document.createElement("div");
+
+      function select_lesson(index) {
+	  
+      }
+      
+      for (let i = 1; i <= 10; i++)
+      {
+	  let current_lesson = document.createElement("div");
+	  current_lesson["class"] = "lesson_choice";
+	  current_lesson.innerHTML = `<h3>Lesson ${i}</h3>`;
+	  current_lesson.addEventListener("click", function () {
+	      // Display the lesson on the webpage using levelData
+	      select_lesson(i);
+	  });
+      }
+      // The submit button submits the lesson data
+      exit_button.addEventListener(function () {
+	  // This is where the code to submit to the database goes
+
+	  // It returns us to the lesson selection screen
+	  game_window.innerHTML = "";
+	  game_window.appendChild(lesson_selection);
+	  
+      });
+    </script>
+  </body>
+</html>
