@@ -5,6 +5,7 @@
   </head>
   <body>
     <div id="game_window"></div>
+    <p id="ID"> </p>
     <script src="./dagamey.js"></script>
     <script src="./jquery-3.6.0.slim.min.js"></script>
     <script>
@@ -16,13 +17,24 @@
       // All we really need to retrieve is the number of lessons in the database
       // Some user data would be nice as well, like the completion level
       let database_data;
-      window.addEventListener("load", function () {
-	  let database_request = new XMLHttpRequest();
-	  database_request.open("POST", "1b-database.php");
-	  database_request.onLoad(function () {
-	      // something something something
-	  });
-      });
+//      window.addEventListener("load", function () {
+//	  let database_request = new XMLHttpRequest();
+//	  database_request.open("POST", "1b-database.php");
+//	  database_request.onLoad(function () {
+//	      // something something something
+//	  });
+//      });
+      let ID;
+      window.addEventListener("load", getUserId);
+      function getUserId() {
+	  $.post("get_user_id.php",function(user_id) {
+              //console.log("hello 1\n");
+              ID = user_id;
+              document.getElementById("ID").innerHTML = `Hello, user number ${ID}`;
+              //console.log("hello 2\n");
+          });
+      }
+      
       // Perhaps a name would be nice too
       let lesson_selection = document.createElement("div");
 
