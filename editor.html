@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<title>Editor</title>
+</head>
+  <body>
+    <h1>Editor</h1>
+    <div id="quiz_editor"></div>
+    <code id="compiled_data"></code>
+    <script src="./dagamey.js"></script>
+    <script>
+      let editor_window = document.getElementById("quiz_editor");
+      let code_window = document.getElementById("compiled_data");
+      
+      let lesson_data = [];
+      
+      function delete_question(index) {
+	  // Why the hell do they even have delete if all it does is set it to undefined?
+	  lesson_data.splice(index, 1);
+      }
+
+      function question_builder(index) {
+	  // There should be a main div for each question, with an x in the corner to delete the
+	  let div = document.createElement("div");
+
+	  return {
+	      div,
+	  };
+      }
+      
+      function multiple_choice_question_builder(index) {
+	  
+      }
+
+      function fill_in_the_blank_builder(index) {
+	  
+      }
+      
+      function matching_question_builder(index) {
+	  // Building the internal structure of the 
+      }
+
+      // setting up the compile button
+
+      // Another 
+      let compile_button = document.createElement("button");
+      compile_button.addEventListener("click", function () {
+	  code_window.innerHTML = JSON.stringify(lesson_data);
+      });
+      
+      editor_window.appendChild(compile_button);
+    </script>
+  </body>
+</html>

@@ -6,6 +6,7 @@
   <body>
     <div id="game_window"></div>
     <script src="./dagamey.js"></script>
+    <script src="./jquery-3.6.0.slim.min.js"></script>
     <script>
       // This is where the code that connects the database to the game engine to the website is
       let exit_button = document.createElement("button");
@@ -14,9 +15,13 @@
       // First, supply the selection of the lesson
       // All we really need to retrieve is the number of lessons in the database
       // Some user data would be nice as well, like the completion level
+      let database_data;
       window.addEventListener("load", function () {
 	  let database_request = new XMLHttpRequest();
 	  database_request.open("POST", "1b-database.php");
+	  database_request.onLoad(function () {
+	      // something something something
+	  });
       });
       let number_of_lessons = 10; // This should be set to something different
       // Perhaps a name would be nice too
