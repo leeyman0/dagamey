@@ -39,13 +39,16 @@
 
       function checkID() {
 	  $.post("check_ID.php",
-		 {ID},
-		 success: function (response) {        //get response from your php page (what you echo or print)
-		     console.log(response);
-		     if (response === 'false') {
-			 createGameRow();
+		 {
+		     ID,
+		     success: function (response) {        //get response from your php page (what you echo or print)
+			 console.log(response);
+			 if (response === 'false') {
+			     createGameRow();
+			 }
 		     }
-		 });
+		 }
+		);
       }
       function createGameRow() {
 	  $.post("make_user_row.php", {ID});
@@ -86,7 +89,7 @@
 	  });
       }
       // The submit button submits the lesson data
-      exit_button.addEventListener(function () {
+      exit_button.addEventListener("click", function () {
 	  // This is where the code to submit to the database goes
 
 	  // It returns us to the lesson selection screen
