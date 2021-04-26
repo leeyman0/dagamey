@@ -5,7 +5,8 @@
   </head>
   <body>
     <div id="game_window"></div>
-    <p id="ID"> </p>
+    <p id="ID">
+    </p>
     <script src="./dagamey.js"></script>
     <script src="./jquery-3.6.0.slim.min.js"></script>
     <script>
@@ -17,24 +18,58 @@
       // All we really need to retrieve is the number of lessons in the database
       // Some user data would be nice as well, like the completion level
       let database_data;
-//      window.addEventListener("load", function () {
-//	  let database_request = new XMLHttpRequest();
-//	  database_request.open("POST", "1b-database.php");
-//	  database_request.onLoad(function () {
-//	      // something something something
-//	  });
-//      });
-      let ID;
+      //      window.addEventListener("load", function () {
+      //	  let database_request = new XMLHttpRequest();
+      //	  database_request.open("POST", "1b-database.php");
+      //	  database_request.onLoad(function () {
+      //	      // something something something
+      //	  });
+      //      });
+      
+      let ID = -1;
       window.addEventListener("load", getUserId);
       function getUserId() {
-	  $.post("get_user_id.php",function(user_id) {
+	  $.post("get_user_id.php", function(user_id) {
               //console.log("hello 1\n");
               ID = user_id;
               document.getElementById("ID").innerHTML = `Hello, user number ${ID}`;
               //console.log("hello 2\n");
           });
       }
-      
+
+      function checkID() {
+	  $.post("check_ID.php",
+		 {"ID": ID},
+		 success: function (response) {        //get response from your php page (what you echo or print)
+		     console.log(response);
+		     if (response === 'false') {
+			 createGameRow();
+		     }
+		 });
+      }
+      function createGameRow() {
+	  $.post("make_user_row.php", {"ID": ID});
+      }
+
+      function getLevel() {
+	  $.post("get_level.php",
+		 {"ID": ID},
+		 function(response) {
+		     current_level = response.level; //Adjust to how level is implmented
+		     document.getElementById("level").innerHTML = response.level; //set the level in html
+		 },
+		 'json'
+		);
+      }
+
+      function setLevel() {
+	  $.post("set_level.php",
+		 {
+		     "ID": ID,
+		     "level": level
+		 });
+	  getLevel(); //this will make sure the latest level is displayed
+      }
       // Perhaps a name would be nice too
       let lesson_selection = document.createElement("div");
 
