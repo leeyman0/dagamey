@@ -39,7 +39,7 @@
 
       function checkID() {
 	  $.post("check_ID.php",
-		 {"ID": ID},
+		 {ID},
 		 success: function (response) {        //get response from your php page (what you echo or print)
 		     console.log(response);
 		     if (response === 'false') {
@@ -48,25 +48,23 @@
 		 });
       }
       function createGameRow() {
-	  $.post("make_user_row.php", {"ID": ID});
+	  $.post("make_user_row.php", {ID});
       }
 
       function getLevel() {
 	  $.post("get_level.php",
-		 {"ID": ID},
+		 {ID},
 		 function(response) {
 		     current_level = response.level; //Adjust to how level is implmented
 		     document.getElementById("level").innerHTML = response.level; //set the level in html
-		 },
-		 'json'
-		);
+		 }, 'json');
       }
 
       function setLevel() {
 	  $.post("set_level.php",
 		 {
-		     "ID": ID,
-		     "level": level
+		     ID,
+		     level,
 		 });
 	  getLevel(); //this will make sure the latest level is displayed
       }
