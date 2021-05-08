@@ -245,53 +245,62 @@ function generate_lesson(lesson_data, div) {
     div.appendChild(lesson_object.question_list[0]);
     return lesson_object;
 }
-function multilevel_lesson(lesson_data, div, lesson_offset) {
+function multilevel_lesson(div, level_offset, total_levels, get_level_data, save_progress) {
     
-    let current_level_index = 0;
-    let total_levels = lesson_data;
+    let current_level_index = level_offset;
+
+    function next_question(this_lesson) {
+	// Allows continuity between levels
+	++this_lesson.current_question;
+	if (this_lesson.current_question >= this_lesson.total_questions) {
+	    // Next level is called when we have reached the end of this level
+	    next_level();
+	    save_progress();
+	} else {
+	    // The question gets changed
+	    this_lesson.div.innerHTML = "";
+	    this_lesson.div.appendChild(this_lesson.question_list[this_lesson.current_question]);
+	}
+    }
+    
+    function next_level() {
+	++current_level_index;
+	if (current_level_index < total_levels) {
+	    // Next level
+	    div.innerHTML = `<p class=\"levelnr\">Level ${current_level_index + 1}</p>`;
+	    let next_level_data = get_level_data(current_level_index);
+	    let level_div = document.createElement("div");
+	    let this_level = generate_lesson(next_level_data, this_level);
+	    this_level.next_question = function () {
+		next_question(this_level);
+	    }
+	    div.appendChild(level_div);
+	} else {
+	    // Get the results? Soon to be implemented
+	    end_screen_sound.play();
+	    div.innerHTML = `<p>Congratulations! You have finished all of the levels for this lesson! Try another!<p>`;
+	}
+    }
     
     let ml_lesson_object = {
 	div,
-	levels : lesson_data.map(function (lesson_level, lesson_nr) {
-	    // Collecting the lesson data for each one
-	    let lesson_div = document.createElement("div");
-	    lesson_div.id = `lesson${lesson_nr + 1}`;
-	    return generate_lesson(lesson, lesson_div);
-	}),
 	current_level_index,
 	total_levels,
-	next_level : function () {
-	    ++current_level_index;
-	    if (current_level_index < total_levels) {
-		// Next level
-		div.innerHTML = `<p>Level ${current_level_index}</p>`;
-		div.appendChild(levels[current_level_index].div);
-	    } else {
-		// Get the results
-		let score = 0;
-		let out_of = 0;
-		levels.forEach(function (level, level_nr) {
-		    score += level.discrete_score;
-		    out_of += level.total_questions;
-		});
-		end_screen_sound.play();
-		div.innerHTML = `<p>Congratulations! You have finished the levels! Your score is ${score}/${out_of}<p>`;
-	    }
-	},
-	next_question : function () {
-	    // Allows continuity between levels
-	    let current_lesson = levels[current_level_index];
-	    ++current_lesson.current_question;
-	    if (current_lesson.current_question >= current_lesson.total_questions) {
-		next_level();
-	    } else {
-		current_lesson.div.innerHTML = "";
-		current_lesson.div.appendChild(current_lesson.question_list[current_lesson.current_question]);
-	    }
-	},
+	next_question,
+	next_level,
     };
-    ml_lesson_object.forEach(function (lesson) {
-	lesson.next_question = ml_lesson_object.next_question;
-    });
+
+    // place the current level on screen
+    
+    div.innerHTML = `<p class=\"levelnr\">Level ${current_level_index + 1}</p>`;
+    let next_level_data = get_level_data(current_level_index);
+    let level_div = document.createElement("div");
+    let this_level = generate_lesson(next_level_data, this_level);
+    this_level.next_question = function () {
+	next_question(this_level);
+    }
+    div.appendChild(level_div);
+    
+    
     return ml_lesson_object;
 }
