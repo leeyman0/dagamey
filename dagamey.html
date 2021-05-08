@@ -85,16 +85,6 @@
 	  
       }
       
-      for (let i = 1; i <= 10; i++)
-      {
-	  let current_lesson = document.createElement("div");
-	  current_lesson["class"] = "lesson_choice";
-	  current_lesson.innerHTML = `<h3>Lesson ${i}</h3>`;
-	  current_lesson.addEventListener("click", function () {
-	      // Display the lesson on the webpage using levelData
-	      select_lesson(i);
-	  });
-      }
       // The submit button submits the lesson data
       exit_button.addEventListener("click", function () {
 	  // This is where the code to submit to the database goes
