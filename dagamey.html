@@ -59,6 +59,17 @@
 		     }
 		 });
       }
+      function load_level(lesson, level) {
+	  $.post("load_level.php",
+		 {
+		     lesson,
+		     level,
+		     success : function (response) {
+			 console.log(response);
+		     }
+		 }
+      }
+      
       // Create data for a user
       function createGameRow() {
 	  $.post("make_user_row.php", {ID});
