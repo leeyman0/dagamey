@@ -9,9 +9,9 @@ if ($conn->connect_error) {
     // Check connection
     die("Connection failed: " . $conn->connect_error);
 }
-$lesson = mysqli_real_escape_string($conn, $_POST['lesson']);
-$level = mysqli_real_escape_string($conn, $_POST['level']);
-$sql = "SELECT levelData FROM Levels  WHERE levelNum=$level ;";
+// $lesson = mysqli_real_escape_string($conn, $_POST['lesson']);
+// $level = mysqli_real_escape_string($conn, $_POST['level']);
+$sql = "SELECT levelData FROM Levels  WHERE levelNum=1 ;";
 
 $result = $conn->query($sql);
 echo $result;

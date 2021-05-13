@@ -55,22 +55,17 @@
 		     }
 		 });
       }
-      function load_level(lesson, level) {
+      function load_level() {
 	  let loaded;
 	  $.post("load_level.php",
-		 {
-		     "lesson": lesson,
-		     "level": level,
-		 },
 		 function (response) {
-		     loaded = response;
 		     console.log(response);
 		 }, 'json');
-	  return loaded;
       }
 
-      let level_data = load_level(1, 1);
-      
+      let level_data = load_level();
+      window.addEventListener("load", load_level);
+
       // Create data for a user
       function createGameRow() {
 	  $.post("make_user_row.php", {ID});
