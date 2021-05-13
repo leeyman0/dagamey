@@ -21,9 +21,25 @@
 	  console.log("Boop!");
       }
 
+      let offset = 2;
+      let level_offsets = new Array(num_lessons).fill(2);
+      
       // Generating the boxes for all 10 levels
       for (let i = 1; i <= num_lessons; i++) {
-	  let current_lesson_select = make_lesson_selection(`Lesson ${i}`, i, 3, 2, function () {
+	  let current_lesson_select = make_lesson_selection(`Lesson ${i}`, i, 3, level_offsets[i - 1], function () {
+	      // Load and add level to screen
+	      game_box.innerHTML = `You are now in Lesson ${i}, Level ${level_offsets[i - 1]}`;
+
+	      // The exit button lets us save our progress.
+	      let exit_button = document.createElement("button");
+	      exit_button.innerHTML = "Save Progress";
+	      // Go back
+	      exit_button.addEventListener("click", save_to_main);
+	      
+	      game_box.appendChild(exit_button);
+	      
+	      
+	  }, function () {
 	      // Save the game
 	      game_box.innerHTML = "";
 	      game_box.appendChild(lesson_selection);

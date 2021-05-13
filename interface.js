@@ -2,7 +2,7 @@
 let game_box = document.getElementById("gamebox");
 let lesson_selection = document.createElement("div");
 
-function make_lesson_selection(lesson_title, lesson_nr, levels_nr, level_offset, save_to_main) {
+function make_lesson_selection(lesson_title, lesson_nr, levels_nr, level_offset, loader, save_to_main) {
     let lesson_selection_box = document.createElement("div");
     lesson_selection_box.classList.add("lessonselectitem");
     // Making a div for the selection title, so that people know what it is
@@ -29,20 +29,7 @@ function make_lesson_selection(lesson_title, lesson_nr, levels_nr, level_offset,
     progress_bar_inner.style.width = Math.round(((level_offset - 1) / levels_nr) * 100).toString() + "%";
     
     // adding functionality to it
-    lesson_selection_box.addEventListener("click", function () {
-	// Load and add level to screen
-	game_box.innerHTML = `You are now in Lesson ${lesson_nr}, Level ${level_offset}`;
-
-	// The exit button lets us save our progress.
-	let exit_button = document.createElement("button");
-	exit_button.innerHTML = "Save Progress";
-	// Go back
-	exit_button.addEventListener("click", save_to_main);
-	
-	game_box.appendChild(exit_button);
-	
-	
-    });
+    lesson_selection_box.addEventListener("click", loader);
     
     return lesson_selection_box;
 }

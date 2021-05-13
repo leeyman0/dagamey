@@ -6,16 +6,17 @@
   </head>
   <body>
     <link rel="stylesheet" type="text/css" href="gamestyle.css" media="screen" />
-    <div id="game_window"></div>
+    <div id="gamebox"></div>
     <p id="ID">
     </p>
     <script src="./dagamey.js"></script>
     <script src="./jquery-3.6.0.min.js"></script>
+    <script src="./interface.js"></script>
     <script>
       // This is where the code that connects the database to the game engine to the website is
       let exit_button = document.createElement("button");
       exit_button.id = "exit_button";
-      let game_window = document.getElementById("game_window");
+      let game_window = document.getElementById("gamebox");
       // First, supply the selection of the lesson
       // All we really need to retrieve is the number of lessons in the database
       // Some user data would be nice as well, like the completion level
@@ -94,38 +95,32 @@
       let lesson_selection = document.createElement("div");
 
       let num_lessons = 10;
-      function make_lesson_selection(lesson_title, lesson_nr, levels_nr, level_offset) {
-	  let lesson_selection_box = document.createElement("div");
-	  level_selection_box["class"] = "lessonselectitem";
-	  // Making a div for the selection box
-	  let selection_title = document.createElement("div");
-	  selection_title["class"] = "lessontitle";
-	  selection_title.innerHTML = lesson_title;
-
-	  // adding functionality to it
-	  lesson_selection_box.addEventListener("click", function () {
-	      load_level(i, level_offset);
-	      
-	  });
-	  
-	  return lesson_selection_box;
-      }
 
       // Generating the boxes for all 10 levels
       for (let i = 1; i <= num_lessons; i++) {
-	  let current_lesson_select = make_lesson_selection(`Lesson ${i}`, i, 3, 1)
+	  let current_lesson_select = make_lesson_selection(`Lesson ${i}`, i, 3, 1, function () {
+	      // Load and add level to screen
+	      game_box.innerHTML = `You are now in Lesson ${lesson_nr}, Level ${level_offset}`;
+
+	      // The exit button lets us save our progress.
+	      let exit_button = document.createElement("button");
+	      exit_button.innerHTML = "Save Progress";
+	      // Go back
+	      exit_button.addEventListener("click", save_to_main);
+	      
+	      game_box.appendChild(exit_button);
+	      
+	      
+	  }, function () {
+	      // Put save game functionality in here
+
+	      // Return to menu
+	      game_box.innerHTML = "";
+	      game_box.appendChild(lesson_selection);
+	  });
 	  lesson_selection.appendChild(current_lesson_select);
       }
       
-      // The submit button submits the lesson data
-      exit_button.addEventListener("click", function () {
-	  // This is where the code to submit to the database goes
-
-	  // It returns us to the lesson selection screen
-	  game_window.innerHTML = "";
-	  game_window.appendChild(lesson_selection);
-	  
-      });
     </script>
   </body>
 </html>
