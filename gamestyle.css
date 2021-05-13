@@ -1,0 +1,15 @@
+.lessonselectitem {
+    border : 1px solid black;
+    padding : 20px;
+}
+.lessontitle {
+    font-family : Arial;
+    font-size : large;
+}
+.progressbarouter {
+    background-color : #DCDCDC;
+}
+.progressbarinner {
+    background-color : #5F9EA0;
+    height : 24px;
+}
