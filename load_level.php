@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 // $lesson = mysqli_real_escape_string($conn, $_POST['lesson']);
 // $level = mysqli_real_escape_string($conn, $_POST['level']);
-$sql = "SELECT levelData FROM Levels  WHERE levelNum=1 ;";
+$sql = "SELECT levelData FROM Levels WHERE levelNum=0 ;";
 
 $result = $conn->query($sql);
 echo $result;
