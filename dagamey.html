@@ -92,15 +92,17 @@
 	  getUserLevel(); //this will make sure the latest level is displayed
       }
       // Perhaps a name would be nice too
-      let lesson_selection = document.createElement("div");
+      // let lesson_selection = document.createElement("div");
 
       let num_lessons = 10;
-
+      let offset = 2;
+      let level_offsets = new Array(num_lessons).fill(2);
+      
       // Generating the boxes for all 10 levels
       for (let i = 1; i <= num_lessons; i++) {
 	  let current_lesson_select = make_lesson_selection(`Lesson ${i}`, i, 3, 1, function () {
 	      // Load and add level to screen
-	      game_box.innerHTML = `You are now in Lesson ${lesson_nr}, Level ${level_offset}`;
+	      game_box.innerHTML = `You are now in Lesson ${i}, Level ${level_offsets[i - 1]}`;
 
 	      // The exit button lets us save our progress.
 	      let exit_button = document.createElement("button");
