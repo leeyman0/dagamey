@@ -1,9 +1,12 @@
 <?php
+echo "Hello der";
 $servername = "localhost";
 $username = "grouxndj_testAccount";
 $password = "york8000";
 $dbname = "grouxndj_game";
+echo "We maka da connek";
 $conn = new mysqli($servername, $username, $password, $dbname);
+echo "Connek med";
 // Create connection
 if ($conn->connect_error) {
     // Check connection
