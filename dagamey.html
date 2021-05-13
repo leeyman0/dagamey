@@ -56,12 +56,14 @@
 		 });
       }
       function load_level(lesson, level) {
+	  let loaded;
 	  $.post("load_level.php",
 		 {
-		     lesson,
-		     level,
+		     "lesson": lesson,
+		     "level": level,
 		 },
 		 function (response) {
+		     loaded = response;
 		     console.log(response);
 		 }, 'json');
       }
