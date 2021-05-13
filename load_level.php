@@ -2,7 +2,7 @@
 echo "Hello der";
 $servername = "localhost";
 $username = "grouxndj_testAccount";
-$password = "york8000";
+$password = "york7000";
 $dbname = "grouxndj_game";
 echo "We maka da connek";
 $conn = new mysqli($servername, $username, $password, $dbname);
