@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>Interface Debug</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <h1>Interface Debug</h1>
+    <div id="gamewindow">
+      <div id="gamebox"></div>
+    </div>
+    <script>
+
+      // Just for debug purposes, let's test this
+      let lesson_selection = document.createElement("div");
+      let num_lessons = 10;
+      let game_window = document.getElementById("gamewindow");
+      let game_box = document.getElementById("gamebox");
+
+      function exit_game() {
+	  // Redirect the tab to somewhere else? Possibly
+	  console.log("Boop!");
+      }
+
+      function make_lesson_selection(lesson_title, lesson_nr, levels_nr, level_offset) {
+	  let lesson_selection_box = document.createElement("div");
+	  lesson_selection_box["class"] = "lessonselectitem";
+	  // Making a div for the selection title, so that people know what it is
+	  let selection_title = document.createElement("div");
+	  selection_title["class"] = "lessontitle";
+	  selection_title.innerHTML = lesson_title;
+	  lesson_selection_box.appendChild(selection_title);
+	  
+	  // adding functionality to it
+	  lesson_selection_box.addEventListener("click", function () {
+	      // Load and add level to screen
+	      game_box.innerHTML = `You are now in Lesson ${lesson_nr}, Level ${level_offset}`;
+
+	      // The exit button lets us save our progress.
+	      let exit_button = document.createElement("button");
+	      exit_button.innerHTML = "Save Progress";
+	      // Go back
+	      exit_button.addEventListener("click", function () {
+		  // Save the game
+		  game_box.innerHTML = "";
+		  game_box.appendChild(lesson_selection);
+	      });
+	      
+	      game_box.appendChild(exit_button);
+	      
+	      
+	  });
+	  
+	  return lesson_selection_box;
+      }
+
+      // Generating the boxes for all 10 levels
+      for (let i = 1; i <= num_lessons; i++) {
+	  let current_lesson_select = make_lesson_selection(`Lesson ${i}`, i, 3, 1)
+	  lesson_selection.appendChild(current_lesson_select);
+      }
+
+      // This is the game menu screen
+      game_box.appendChild(lesson_selection);
+      
+    </script>
+    <!-- <address>
+      <a href="mailto:leeyman@hpenvy">leeyman</a>
+    </address> -->
+  </body>
+</html>
