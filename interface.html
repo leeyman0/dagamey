@@ -34,15 +34,15 @@
 	      let exit_button = document.createElement("button");
 	      exit_button.innerHTML = "Save Progress";
 	      // Go back
-	      exit_button.addEventListener("click", save_to_main);
+	      exit_button.addEventListener("click", function () {
+		  // Save the game
+		  game_box.innerHTML = "";
+		  game_box.appendChild(lesson_selection);
+	      });
 	      
 	      game_box.appendChild(exit_button);
 	      
 	      
-	  }, function () {
-	      // Save the game
-	      game_box.innerHTML = "";
-	      game_box.appendChild(lesson_selection);
 	  });
 	  lesson_selection.appendChild(current_lesson_select);
       }

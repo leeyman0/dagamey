@@ -2,7 +2,7 @@
 let game_box = document.getElementById("gamebox");
 let lesson_selection = document.createElement("div");
 
-function make_lesson_selection(lesson_title, lesson_nr, levels_nr, level_offset, loader, save_to_main) {
+function make_lesson_selection(lesson_title, lesson_nr, levels_nr, level_offset, loader) {
     let lesson_selection_box = document.createElement("div");
     lesson_selection_box.classList.add("lessonselectitem");
     // Making a div for the selection title, so that people know what it is
