@@ -13,6 +13,8 @@
     <script src="./jquery-3.6.0.min.js"></script>
     <script src="./interface.js"></script>
     <script>
+      // Could change to something else in the future
+      const user_storage_location = "group3fit50-userprogress";
       // This is where the code that connects the database to the game engine to the website is
       let exit_button = document.createElement("button");
       exit_button.id = "exit_button";
@@ -55,42 +57,35 @@
 		     }
 		 });
       }
-      function load_level() {
-	  let loaded;
-	  $.post("load_level.php",
-		 function (response) {
-		     console.log("bottom tex");
-		     console.log(response);
-		 }, 'json');
+      function load_level(lesson, level) {
+	  let loaded_level;
+	  $.getJSON(`./Lessons/lesson${lesson}-${level}.json`,
+		    function (response) {
+			loaded_level = response;
+		    });
+	  return loaded_level;
       }
-
-      let level_data = load_level();
-      window.addEventListener("load", load_level);
+      // Assert that this works
+      let level_data = load_level(0, 0);
+      console.log(level_data);
+      // window.addEventListener("load", load_level);
 
       // Create data for a user
+      // Again, wish that we had the ability to get data for each user. All we have is the local storage
       function createGameRow() {
-	  $.post("make_user_row.php", {ID});
+	  localStorage.setItem(user_storage_location, {lesson : 0, level : 0});
       }
 
       // This does not get a level, it should be named something different
       function getUserLevel() {
-	  let level_nr;
-	  $.post("get_level.php",
-		 {ID},
-		 function(response) {
-		     level = response.level; 
-		     document.getElementById("progress").innerHTML = response.level;
-		 }, 'json');
-	  return level_nr;
+	  let usi = localStorage.getItem(user_storage_location);
+	  // I wish that we could do something different, but the chosen path that was, meant it was not to be
+	  
+	  return usi;
       }
 
-      function setUserLevel() {
-	  $.post("set_level.php",
-		 {
-		     ID,
-		     level,
-		 });
-	  getUserLevel(); //this will make sure the latest level is displayed
+      function setUserLevel(lesson, level) {
+	  localStorage.setItem(user_storage_location, {lesson, level});
       }
       // Perhaps a name would be nice too
       // let lesson_selection = document.createElement("div");
@@ -103,8 +98,10 @@
       for (let i = 1; i <= num_lessons; i++) {
 	  let current_lesson_select = make_lesson_selection(`Lesson ${i}`, i, 3, 1, function () {
 	      // Load and add level to screen
-	      game_box.innerHTML = `You are now in Lesson ${i}, Level ${level_offsets[i - 1]}`;
-
+	      game_box.innerHTML = "";
+	      // game_box.innerHTML = `You are now in Lesson ${i}, Level ${level_offsets[i - 1]}`;
+	      
+	      
 	      // The exit button lets us save our progress.
 	      let exit_button = document.createElement("button");
 	      exit_button.innerHTML = "Save Progress";
