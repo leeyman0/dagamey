@@ -58,28 +58,14 @@
 		 });
       }
       function load_level(lesson, level) {
-	  let loaded_level;
-	  // We going old-school
-	  function loadJSON(callback) {
-	      // I don't understand quite what this means, but I can understand the general gist of it
-	      let rq = new XMLHttpRequest({mozSystem : true});
-	      rq.overrideMimeType("application/json");
-	      rq.onreadystatechange = function () {
-		  if (rq.readyState == 4 && rq.status == "200") {
-                      // Required use of an anonymous callback as .open will NOT return 
-                      // a value but simply returns undefined in asynchronous mode
-                      callback(rq.responseText);
-		  } else {
-                      callback("[{\"Nothing\"}]");
-		  }
-              };
-	      rq.open('GET', `./Lessons/lesson${lesson}-${level}.json`, true);
-	      rq.send(null);
-	  }
-	  // My God, what have I done?
-	  return loadJSON(function (response) {
-	      return response;
-	  });
+	  let loaded_level = undefined;
+	  $.getJSON(`./Lessons/lesson${lesson}-${level}.json`,
+		    function (level_data) {
+			console.log(level_data);
+			loaded_level = level_data;
+		    });
+
+	  return loaded_level;
       }
       // Assert that this works
       let level_data = load_level(0, 0);
