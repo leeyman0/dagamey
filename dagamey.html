@@ -76,6 +76,7 @@
 	      rq.open('GET', `./Lessons/lesson${lesson}-${level}.json`, true);
 	      rq.send(null);
 	  }
+	  // My God, what have I done?
 	  return loadJSON(function (response) {
 	      return response;
 	  });
@@ -88,7 +89,7 @@
       // Create data for a user
       // Again, wish that we had the ability to get data for each user. All we have is the local storage
       function createGameRow() {
-	  localStorage.setItem(user_storage_location, {lesson : 0, level : 0});
+	  localStorage.setItem(user_storage_location, {lesson : 1, level : 1});
       }
 
       // This does not get a level, it should be named something different
@@ -105,9 +106,9 @@
       // Perhaps a name would be nice too
       // let lesson_selection = document.createElement("div");
 
-      let num_lessons = 10;
-      let offset = 2;
-      let level_offsets = new Array(num_lessons).fill(2);
+      let num_lessons = 1;
+      let level_offsets = [1];
+      let level_lengths = [2];
       
       // Generating the boxes for all 10 levels
       for (let i = 1; i <= num_lessons; i++) {
@@ -115,6 +116,15 @@
 	      // Load and add level to screen
 	      game_box.innerHTML = "";
 	      // game_box.innerHTML = `You are now in Lesson ${i}, Level ${level_offsets[i - 1]}`;
+	      
+	      let gamer_div = document.createElement("div");
+	      let this_lesson = multilevel_lesson(gamer_div,
+						  level_offsets[i - 1],
+						  level_lengths[i - 1],
+						  function (level) {
+						      return load_level(i, level);
+						  },
+						  setUserLevel);
 	      
 	      
 	      // The exit button lets us save our progress.
