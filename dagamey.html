@@ -88,12 +88,14 @@
       }
 
       // user_info stores the data on the user
-      let user_info;
-      if ((user_info = getUserLevel()) === undefined || user_info === null)
+      let user_info = getUserLevel();
+      if ((user_info) === undefined || user_info === null)
       {
 	  createGameRow();
 	  user_info = {"lesson" : 1, "level" : 1};
       }
+      console.log("This is the user:");
+      console.log(user_info);
       
       function setUserLevel(lesson, level) {
 	  localStorage.setItem(user_storage_location, {lesson, level});
