@@ -59,11 +59,16 @@
       }
       function load_level(lesson, level) {
 	  let loaded_level = undefined;
-	  $.getJSON(`./Lessons/lesson${lesson}-${level}.json`,
-		    function (level_data) {
-			console.log(level_data);
-			loaded_level = level_data;
-		    });
+	  $.ajax({ url : `./Lessons/lesson${lesson}-${level}.json`,
+		   dataType : 'json',
+		   success : function (level_data) {
+		       // Level data loaded
+		      console.log(level_data);
+		      loaded_level = level_data;
+		      return level_data;
+		   },
+		   "async" : false; 
+		 });
 	  console.log("exited jquery");
 	  console.log(loaded_level);
 	  return loaded_level;
