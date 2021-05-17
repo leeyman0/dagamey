@@ -245,7 +245,7 @@ function generate_lesson(lesson_data, div) {
     div.appendChild(lesson_object.question_list[0]);
     return lesson_object;
 }
-function multilevel_lesson(div, level_offset, total_levels, get_level_data, save_progress) {
+function multilevel_lesson(div, level_offset, total_levels, get_level_data) {
     
     let current_level_index = level_offset;
 
@@ -255,7 +255,6 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data, save
 	if (this_lesson.current_question >= this_lesson.total_questions) {
 	    // Next level is called when we have reached the end of this level
 	    next_level();
-	    save_progress();
 	} else {
 	    // The question gets changed
 	    this_lesson.div.innerHTML = "";
@@ -265,7 +264,7 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data, save
     
     function next_level() {
 	++current_level_index;
-	if (current_level_index < total_levels) {
+	if (current_level_index <= total_levels) {
 	    // Next level
 	    div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
 	    let next_level_data = get_level_data(current_level_index);
@@ -292,7 +291,7 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data, save
 
     // place the current level on screen
     
-    div.innerHTML = `<p class=\"levelnr\">Level ${current_level_index + 1}</p>`;
+    div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
     let next_level_data = get_level_data(current_level_index);
     let level_div = document.createElement("div");
     let this_level = generate_lesson(next_level_data, level_div);
