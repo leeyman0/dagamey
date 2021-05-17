@@ -267,7 +267,7 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data, save
 	++current_level_index;
 	if (current_level_index < total_levels) {
 	    // Next level
-	    div.innerHTML = `<p class=\"levelnr\">Level ${current_level_index + 1}</p>`;
+	    div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
 	    let next_level_data = get_level_data(current_level_index);
 	    let level_div = document.createElement("div");
 	    let this_level = generate_lesson(next_level_data, level_div);
