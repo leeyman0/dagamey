@@ -64,12 +64,13 @@
 			console.log(level_data);
 			loaded_level = level_data;
 		    });
-
+	  console.log("exited jquery");
+	  console.log(loaded_level);
 	  return loaded_level;
       }
       // Assert that this works
       let level_data = load_level(0, 0);
-      console.log(level_data);
+      // console.log(level_data);
       // window.addEventListener("load", load_level);
 
       // Create data for a user
@@ -91,7 +92,7 @@
       if ((user_info = getUserLevel()) === undefined || user_info === null)
       {
 	  createGameRow();
-	  user_info = {lesson : 1, level : 1};
+	  user_info = {"lesson" : 1, "level" : 1};
       }
       
       function setUserLevel(lesson, level) {
