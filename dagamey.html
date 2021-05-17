@@ -99,8 +99,10 @@
 	  
 	  return usi;
       }
+
+      // user_info stores the data on the user
       let user_info;
-      if ((user_info = getUserLevel()) === undefined)
+      if ((user_info = getUserLevel()) === undefined || user_info === null)
       {
 	  createGameRow();
 	  user_info = {lesson : 1, level : 1};
@@ -142,8 +144,7 @@
 						  level_lengths[i - 1],
 						  function (level) {
 						      return load_level(i, level);
-						  },
-						  setUserLevel);
+						  });
 	      
 	      
 	      // The exit button lets us save our progress.
@@ -157,7 +158,7 @@
 	      
 	  }, function () {
 	      // Put save game functionality in here
-
+	      setUserLevel(user_info.lesson, user_info.level);
 	      // Return to menu
 	      game_box.innerHTML = "";
 	      game_box.appendChild(lesson_selection);
