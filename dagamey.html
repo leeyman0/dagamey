@@ -99,7 +99,13 @@
 	  
 	  return usi;
       }
-
+      let user_info;
+      if ((user_info = getUserLevel()) === undefined)
+      {
+	  createGameRow();
+	  user_info = {lesson : 1, level : 1};
+      }
+      
       function setUserLevel(lesson, level) {
 	  localStorage.setItem(user_storage_location, {lesson, level});
       }
@@ -107,12 +113,25 @@
       // let lesson_selection = document.createElement("div");
 
       let num_lessons = 1;
-      let level_offsets = [1];
-      let level_lengths = [2];
-      
+      let level_offsets = [];
+      let level_lengths = [3];
+      for (let j = 1; j <= num_lessons; j++)
+      {
+	  if (user_info.lesson > j) {
+	      level_offsets.push(level_lengths[j-1]);
+	  }
+	  else if (user_info.lesson === j) {
+	      level_offsets.push(user_info.level);
+	  }
+	  else {
+	      level_offsets.push(1); // We seem not to have reached this level yet.
+	  }
+
+	      
+      }
       // Generating the boxes for all 10 levels
       for (let i = 1; i <= num_lessons; i++) {
-	  let current_lesson_select = make_lesson_selection(`Lesson ${i}`, i, 3, 1, function () {
+	  let current_lesson_select = make_lesson_selection(`Lesson ${i}`, i, 3, level_offsets[i - 1], function () {
 	      // Load and add level to screen
 	      game_box.innerHTML = "";
 	      // game_box.innerHTML = `You are now in Lesson ${i}, Level ${level_offsets[i - 1]}`;
