@@ -151,6 +151,9 @@
 		  user_info.lesson = i;
 		  user_info.level = this_lesson.current_level_index + 1;
 		  // You know don't repeat yourself? I don't have time to follow it.
+		  // Go back to the menu
+		  game_box.innerHTML = "";
+		  game_box.appendChild(lesson_selection);
 		  for (let j = 1; j <= num_lessons; j++)
 		  {
 		      if (user_info.lesson > j) {
@@ -170,9 +173,6 @@
 		  }
 		  // Save the progress in our functions
 		  setUserLevel(user_info.lesson, user_info.level);
-		  // Go back to the menu
-		  game_box.innerHTML = "";
-		  game_box.appendChild(lesson_selection);
 	      });
 	      
 	      game_box.appendChild(exit_button); 
