@@ -140,8 +140,9 @@
 						  function (level) {
 						      return load_level(i, level);
 						  });
-	      
-	      
+	      // Why do I make these mistakes?
+	      game_box.appendChild(gamer_div);
+	      game_box.appendChild(document.createElement("br");
 	      // The exit button lets us save our progress.
 	      let exit_button = document.createElement("button");
 	      exit_button.innerHTML = "Save Progress";
@@ -149,7 +150,7 @@
 	      exit_button.addEventListener("click", function () {
 		  // Rearrange the level offsets
 		  user_info.lesson = i;
-		  user_info.level = this_lesson.current_level_index + 1;
+		  user_info.level = this_lesson.current_level_index;
 		  // You know don't repeat yourself? I don't have time to follow it.
 		  // Go back to the menu
 		  game_box.innerHTML = "";
