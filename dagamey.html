@@ -81,12 +81,12 @@
       // Create data for a user
       // Again, wish that we had the ability to get data for each user. All we have is the local storage
       function createGameRow() {
-	  localStorage.setItem(user_storage_location, {lesson : 1, level : 1});
+	  localStorage.setItem(user_storage_location, JSON.stringify({lesson : 1, level : 1}));
       }
 
       // This does not get a level, it should be named something different
       function getUserLevel() {
-	  let usi = localStorage.getItem(user_storage_location);
+	  let usi = JSON.parse(localStorage.getItem(user_storage_location));
 	  // I wish that we could do something different, but the chosen path that was, meant it was not to be
 	  
 	  return usi;
@@ -94,7 +94,7 @@
 
       // user_info stores the data on the user
       let user_info = getUserLevel();
-      if ((user_info) === undefined || user_info === null)
+      if ((user_info) === undefined || user_info === null || user_info === "[object Object]")
       {
 	  createGameRow();
 	  user_info = {"lesson" : 1, "level" : 1};
@@ -103,7 +103,7 @@
       console.log(user_info);
       
       function setUserLevel(lesson, level) {
-	  localStorage.setItem(user_storage_location, {lesson, level});
+	  localStorage.setItem(user_storage_location, JSON.stringify({lesson, level}));
       }
       // Perhaps a name would be nice too
       // let lesson_selection = document.createElement("div");
