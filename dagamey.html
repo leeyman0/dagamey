@@ -111,6 +111,7 @@
       let num_lessons = 1;
       let level_offsets = [];
       let level_lengths = [3];
+      // Setting up the offsets
       for (let j = 1; j <= num_lessons; j++)
       {
 	  if (user_info.lesson > j) {
@@ -159,7 +160,7 @@
 	  });
 	  lesson_selection.appendChild(current_lesson_select);
       }
-      
+      gamebox.appendChild(lesson_selection);
     </script>
   </body>
 </html>
