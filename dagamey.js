@@ -245,6 +245,12 @@ function generate_lesson(lesson_data, div) {
     div.appendChild(lesson_object.question_list[0]);
     return lesson_object;
 }
+
+// Reference hell
+function call_next_level(lobj) {
+    lobj.next_level();
+}
+
 function multilevel_lesson(div, level_offset, total_levels, get_level_data, user_progress) {
     
     let current_level_index = level_offset;
@@ -256,10 +262,6 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data, user
     let next_level_data = get_level_data(current_level_index);
     let level_div = document.createElement("div");
     let internal_level = generate_lesson(next_level_data, level_div);
-    internal_level.next_question = function () {
-	next_question(internal_level);
-    }
-    div.appendChild(level_div);
     
     let ml_lesson_object = {
 	div,
@@ -270,7 +272,7 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data, user
 	    ++this_lesson.current_question;
 	    if (this_lesson.current_question >= this_lesson.total_questions) {
 		// Next level is called when we have reached the end of this level
-		ml_lesson_object.next_level();
+		call_next_level(ml_lesson_object);
 	    } else {
 		// The question gets changed
 		this_lesson.div.innerHTML = "";
@@ -278,29 +280,38 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data, user
 	    }
 	},
 	next_level : function () {
-	    // Updating the score
-	    // Updating the level
-	    ++ml_lesson_object.current_level_index;
-	    score += internal_level.discrete_score;
-	    total_questions += internal_level.total_questions;
-	    ++user_progress.level;
-	    if (ml_lesson_object.current_level_index <= total_levels) {
-		// Next level
-		div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
-		let next_level_data = get_level_data(current_level_index);
-		let level_div = document.createElement("div");
-		internal_level = generate_lesson(next_level_data, level_div);
-		// What does this even mean? As it turns out, this 
-		internal_level.next_question = function () {
-		    ml_lesson_object.next_question(internal_level);
-		}
-		div.appendChild(level_div);
-	    } else {
-		// Get the results? Soon to be implemented
-		end_screen_sound.play();
-		div.innerHTML = `<p>Congratulations! You have finished all of the levels for this lesson! Your score is ${score}/${total_questions}<p>`;
-	    }
+	    return;
 	},
     };
+    // define the lesson internally, then call it
+    internal_level.next_question = function () {
+	ml_lesson_object.next_question(internal_level);
+    }
+    div.appendChild(level_div);
+    
+    ml_lesson_object.next_level = function () {
+	// Updating the score
+	// Updating the level
+	++ml_lesson_object.current_level_index;
+	score += internal_level.discrete_score;
+	total_questions += internal_level.total_questions;
+	++user_progress.level;
+	if (ml_lesson_object.current_level_index <= total_levels) {
+	    // Next level
+	    div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
+	    let next_level_data = get_level_data(current_level_index);
+	    let level_div = document.createElement("div");
+	    internal_level = generate_lesson(next_level_data, level_div);
+	    // What does this even mean? As it turns out, this 
+	    internal_level.next_question = function () {
+		ml_lesson_object.next_question(internal_level);
+	    }
+	    div.appendChild(level_div);
+	} else {
+	    // Get the results? Soon to be implemented
+	    end_screen_sound.play();
+	    div.innerHTML = `<p>Congratulations! You have finished all of the levels for this lesson! Your score is ${score}/${total_questions}<p>`;
+	}
+    }
     return ml_lesson_object;
 }
