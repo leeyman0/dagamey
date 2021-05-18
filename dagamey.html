@@ -130,7 +130,7 @@
       // Generating the boxes for all 10 levels
       for (let i = 1; i <= num_lessons; i++) {
 	  let current_lesson_select =
-	      make_lesson_selection(`Lesson ${i}`, i, 3, Math.min(level_offsets[i - 1], level_lengths[i - 1]), function () {
+	      make_lesson_selection(`Lesson ${i}`, i, 3, level_offsets[i - 1], function () {
 	      // Load and add level to screen
 	      game_box.innerHTML = "";
 	      // game_box.innerHTML = `You are now in Lesson ${i}, Level ${level_offsets[i - 1]}`;
@@ -173,7 +173,7 @@
 		      }
 		      // Setting the progress bar of each level
 		      let progress_bar_inner = document.getElementById(`lessonbar_${j}`);
-		      progress_bar_inner.style.width = Math.round(((level_offsets[j - 1] - 1) / level_lengths[j - 1])
+		      progress_bar_inner.style.width = Math.round((Math.min(level_offsets[j - 1] - 1, level_lengths[i - 1]) / level_lengths[j - 1])
 								  * 100).toString() + "%";
 		      
 		  }

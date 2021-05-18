@@ -21,9 +21,9 @@ function wrong_answer(lesson) {
     wrong_answer_sound.play();
     // Push a copy of this question to the end, the same behavior that duolingo exhibits
     // not actually working
-
+    
     // Find some way to signal back to the server that the question was got wrong
-
+    lesson.discrete_score -= 0.5;
     // lesson.next_question();
 }
 
