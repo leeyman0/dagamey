@@ -248,7 +248,9 @@ function generate_lesson(lesson_data, div) {
 function multilevel_lesson(div, level_offset, total_levels, get_level_data) {
     
     let current_level_index = level_offset;
-
+    let score = 0;
+    let questions = 0;
+    
     function next_question(this_lesson) {
 	// Allows continuity between levels
 	++this_lesson.current_question;
@@ -262,15 +264,18 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data) {
 	}
     }
     let ml_lesson_object;
+    let this_level;
     
     function next_level() {
 	++ml_lesson_object.current_level_index;
-	if (let_ml_lesson_object.current_level_index <= total_levels) {
+	score += this_level.discrete_score;
+	total_questions += this_level.total_questions;
+	if (ml_lesson_object.current_level_index <= total_levels) {
 	    // Next level
 	    div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
 	    let next_level_data = get_level_data(current_level_index);
 	    let level_div = document.createElement("div");
-	    let this_level = generate_lesson(next_level_data, level_div);
+	    this_level = generate_lesson(next_level_data, level_div);
 	    this_level.next_question = function () {
 		next_question(this_level);
 	    }
@@ -278,7 +283,7 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data) {
 	} else {
 	    // Get the results? Soon to be implemented
 	    end_screen_sound.play();
-	    div.innerHTML = `<p>Congratulations! You have finished all of the levels for this lesson! Try another!<p>`;
+	    div.innerHTML = `<p>Congratulations! You have finished all of the levels for this lesson! Your score is ${score}/${total_questions}<p>`;
 	}
     }
     
