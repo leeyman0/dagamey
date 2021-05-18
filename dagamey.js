@@ -292,7 +292,11 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data, user
     ml_lesson_object.next_level = function () {
 	// Updating the score
 	// Updating the level
+	console.log("Before updating:");
+	console.log(ml_lesson_object.current_level_index);
 	++ml_lesson_object.current_level_index;
+	console.log("After updating:");
+	console.log(ml_lesson_object.current_level_index);
 	score += internal_level.discrete_score;
 	// total_questions += internal_level.total_questions;
 	++user_progress.level;
