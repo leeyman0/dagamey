@@ -151,7 +151,7 @@
 	      exit_button.addEventListener("click", function () {
 		  // Rearrange the level offsets
 		  user_info.lesson = i;
-		  user_info.level = this_lesson.current_level_index;
+		  user_info.level = this_lesson.get_user_current_level();
 		  console.log(user_info);
 		  // You know don't repeat yourself? I don't have time to follow it.
 		  // Go back to the menu

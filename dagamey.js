@@ -289,6 +289,10 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data) {
 	next_level,
     };
 
+    ml_lesson_object["get_user_current_level"] = function () {
+	// This is messed up, but I hope it works
+	return ml_lesson_object.current_level_index;
+    };
     // place the current level on screen
     
     div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
