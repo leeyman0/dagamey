@@ -294,7 +294,7 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data, user
 	// Updating the level
 	++ml_lesson_object.current_level_index;
 	score += internal_level.discrete_score;
-	total_questions += internal_level.total_questions;
+	// total_questions += internal_level.total_questions;
 	++user_progress.level;
 	if (ml_lesson_object.current_level_index <= total_levels) {
 	    // Next level
@@ -310,7 +310,7 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data, user
 	} else {
 	    // Get the results? Soon to be implemented
 	    end_screen_sound.play();
-	    div.innerHTML = `<p>Congratulations! You have finished all of the levels for this lesson! Your score is ${score}/${total_questions}<p>`;
+	    div.innerHTML = `<p>Congratulations! You have finished all of the levels for this lesson! Your score is ${score}<p>`;
 	}
     }
     return ml_lesson_object;
