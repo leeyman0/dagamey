@@ -245,62 +245,13 @@ function generate_lesson(lesson_data, div) {
     div.appendChild(lesson_object.question_list[0]);
     return lesson_object;
 }
-function multilevel_lesson(div, level_offset, total_levels, get_level_data) {
+function multilevel_lesson(div, level_offset, total_levels, get_level_data, user_progress) {
     
     let current_level_index = level_offset;
     let score = 0;
     let questions = 0;
     
-    function next_question(this_lesson) {
-	// Allows continuity between levels
-	++this_lesson.current_question;
-	if (this_lesson.current_question >= this_lesson.total_questions) {
-	    // Next level is called when we have reached the end of this level
-	    next_level();
-	} else {
-	    // The question gets changed
-	    this_lesson.div.innerHTML = "";
-	    this_lesson.div.appendChild(this_lesson.question_list[this_lesson.current_question]);
-	}
-    }
-    let ml_lesson_object;
-    let this_level;
-    
-    function next_level() {
-	++ml_lesson_object.current_level_index;
-	score += this_level.discrete_score;
-	total_questions += this_level.total_questions;
-	if (ml_lesson_object.current_level_index <= total_levels) {
-	    // Next level
-	    div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
-	    let next_level_data = get_level_data(current_level_index);
-	    let level_div = document.createElement("div");
-	    this_level = generate_lesson(next_level_data, level_div);
-	    this_level.next_question = function () {
-		next_question(this_level);
-	    }
-	    div.appendChild(level_div);
-	} else {
-	    // Get the results? Soon to be implemented
-	    end_screen_sound.play();
-	    div.innerHTML = `<p>Congratulations! You have finished all of the levels for this lesson! Your score is ${score}/${total_questions}<p>`;
-	}
-    }
-    
-    ml_lesson_object = {
-	div,
-	current_level_index,
-	total_levels,
-	next_question,
-	next_level,
-    };
-
-    ml_lesson_object["get_user_current_level"] = function () {
-	// This is messed up, but I hope it works
-	return ml_lesson_object.current_level_index;
-    };
     // place the current level on screen
-    
     div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
     let next_level_data = get_level_data(current_level_index);
     let level_div = document.createElement("div");
@@ -310,6 +261,46 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data) {
     }
     div.appendChild(level_div);
     
-    
+    let ml_lesson_object = {
+	div,
+	current_level_index,
+	total_levels,
+	next_question : function (this_lesson) {
+	    // Allows continuity between levels
+	    ++this_lesson.current_question;
+	    if (this_lesson.current_question >= this_lesson.total_questions) {
+		// Next level is called when we have reached the end of this level
+		ml_lesson_object.next_level();
+	    } else {
+		// The question gets changed
+		this_lesson.div.innerHTML = "";
+		this_lesson.div.appendChild(this_lesson.question_list[this_lesson.current_question]);
+	    }
+	},
+	next_level : function () {
+	    // Updating the score
+	    // Updating the level
+	    ++ml_lesson_object.current_level_index;
+	    score += this_level.discrete_score;
+	    total_questions += this_level.total_questions;
+	    ++user_progress.level;
+	    if (ml_lesson_object.current_level_index <= total_levels) {
+		// Next level
+		div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
+		let next_level_data = get_level_data(current_level_index);
+		let level_div = document.createElement("div");
+		this_level = generate_lesson(next_level_data, level_div);
+		// What does this even mean? As it turns out, this 
+		this_level.next_question = function () {
+		    ml_lesson_object.next_question(this_level);
+		}
+		div.appendChild(level_div);
+	    } else {
+		// Get the results? Soon to be implemented
+		end_screen_sound.play();
+		div.innerHTML = `<p>Congratulations! You have finished all of the levels for this lesson! Your score is ${score}/${total_questions}<p>`;
+	    }
+	},
+    };
     return ml_lesson_object;
 }

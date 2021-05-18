@@ -154,7 +154,6 @@
 	      exit_button.addEventListener("click", function () {
 		  // Rearrange the level offsets
 		  user_info.lesson = i;
-		  user_info.level = current_lesson["get_user_current_level"]();
 		  console.log(user_info);
 		  // You know don't repeat yourself? I don't have time to follow it.
 		  // Go back to the menu
@@ -183,7 +182,7 @@
 	      });
 	      
 	      game_box.appendChild(exit_button); 
-	  });
+	      }, user_info);
 	  lesson_selection.appendChild(current_lesson_select);
       }
       gamebox.appendChild(lesson_selection);
