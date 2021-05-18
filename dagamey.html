@@ -143,7 +143,7 @@
 						 level_lengths[i - 1],
 						 function (level) {
 						     return load_level(i, level);
-						 });
+						 }, user_info);
 	      // Why do I make these mistakes?
 	      game_box.appendChild(gamer_div);
 	      game_box.appendChild(document.createElement("br"));
@@ -182,7 +182,7 @@
 	      });
 	      
 	      game_box.appendChild(exit_button); 
-	      }, user_info);
+	      });
 	  lesson_selection.appendChild(current_lesson_select);
       }
       gamebox.appendChild(lesson_selection);
