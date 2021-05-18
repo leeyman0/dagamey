@@ -126,21 +126,24 @@
 
 	      
       }
+      let current_lesson;
       // Generating the boxes for all 10 levels
       for (let i = 1; i <= num_lessons; i++) {
 	  let current_lesson_select =
-	      make_lesson_selection(`Lesson ${i}`, i, 3,(level_lengths[i - 1] === level_offsets[i - 1]? 1 : level_offsets[i - 1]), function () {
+	      make_lesson_selection(`Lesson ${i}`, i, 3, level_offsets[i - 1], function () {
 	      // Load and add level to screen
 	      game_box.innerHTML = "";
 	      // game_box.innerHTML = `You are now in Lesson ${i}, Level ${level_offsets[i - 1]}`;
 	      
 	      let gamer_div = document.createElement("div");
-	      let this_lesson = multilevel_lesson(gamer_div,
-						  level_offsets[i - 1],
-						  level_lengths[i - 1],
-						  function (level) {
-						      return load_level(i, level);
-						  });
+	      current_lesson = multilevel_lesson(gamer_div,
+						 ((level_offsets[i - 1] >= level_lengths[i - 1])?
+						  1 : level_offsets[i - 1]
+						 ),
+						 level_lengths[i - 1],
+						 function (level) {
+						     return load_level(i, level);
+						 });
 	      // Why do I make these mistakes?
 	      game_box.appendChild(gamer_div);
 	      game_box.appendChild(document.createElement("br"));
@@ -151,12 +154,13 @@
 	      exit_button.addEventListener("click", function () {
 		  // Rearrange the level offsets
 		  user_info.lesson = i;
-		  user_info.level = this_lesson.get_user_current_level();
+		  user_info.level = current_lesson["get_user_current_level"]();
 		  console.log(user_info);
 		  // You know don't repeat yourself? I don't have time to follow it.
 		  // Go back to the menu
 		  game_box.innerHTML = "";
 		  game_box.appendChild(lesson_selection);
+		  // For each element, set the level offsets
 		  for (let j = 1; j <= num_lessons; j++)
 		  {
 		      if (user_info.lesson > j) {
@@ -168,7 +172,7 @@
 		      else {
 			  level_offsets[j-1] = 1; // We seem not to have reached this level yet.
 		      }
-
+		      // Setting the progress bar of each level
 		      let progress_bar_inner = document.getElementById(`lessonbar_${j}`);
 		      progress_bar_inner.style.width = Math.round(((level_offsets[j - 1] - 1) / level_lengths[j - 1])
 								  * 100).toString() + "%";
