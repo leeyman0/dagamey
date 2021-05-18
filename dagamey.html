@@ -138,8 +138,8 @@
 	      let gamer_div = document.createElement("div");
 	      current_lesson = multilevel_lesson(gamer_div,
 						 ((level_offsets[i - 1] >= level_lengths[i - 1])?
-						  1 : level_offsets[i - 1]
-						 ),
+						  1 : level_offsets[i - 1] // Making sure that we can restart the 
+						 ), // level.
 						 level_lengths[i - 1],
 						 function (level) {
 						     return load_level(i, level);
