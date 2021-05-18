@@ -13,7 +13,7 @@ function question(qtype, qdata, qans) {
 	qans // qans is the index of the question's answer in qdata
     });
 }
-let wrong_answer_sound = new Audio("./Assets/Bruh-Sound-Effect.mp3");
+let wrong_answer_sound = new Audio("./Assets/zapsplat_multimedia_game_error_tone_001_24919.mp3");
 let right_answer_sound = new Audio("./Assets/FitnessGram2.mp3");
 function wrong_answer(lesson) {
     console.log("Wrong answer");
@@ -24,7 +24,7 @@ function wrong_answer(lesson) {
 
     // Find some way to signal back to the server that the question was got wrong
 
-    lesson.next_question();
+    // lesson.next_question();
 }
 
 function right_answer(lesson) {
@@ -207,7 +207,7 @@ function generate(question, question_nr, lesson_object) {
     }
     return q_object;
 }
-let end_screen_sound = new Audio("./Assets/FitnessGram1.mp3");
+let end_screen_sound = new Audio("./Assets/zapsplat_multimedia_game_tone_harp_warm_positive_correct_win_001_50712.mp3");
 // a lesson is just a list of questions, by the way
 function generate_lesson(lesson_data, div) {
 
@@ -261,10 +261,11 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data) {
 	    this_lesson.div.appendChild(this_lesson.question_list[this_lesson.current_question]);
 	}
     }
+    let ml_lesson_object;
     
     function next_level() {
-	++current_level_index;
-	if (current_level_index <= total_levels) {
+	++ml_lesson_object.current_level_index;
+	if (let_ml_lesson_object.current_level_index <= total_levels) {
 	    // Next level
 	    div.innerHTML = `<h3 class=\"levelnr\">Level ${current_level_index}</h3>`;
 	    let next_level_data = get_level_data(current_level_index);
@@ -281,7 +282,7 @@ function multilevel_lesson(div, level_offset, total_levels, get_level_data) {
 	}
     }
     
-    let ml_lesson_object = {
+    ml_lesson_object = {
 	div,
 	current_level_index,
 	total_levels,
