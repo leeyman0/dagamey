@@ -1,7 +1,25 @@
 This was for a project at Towson University, I made a game portion of a website.
+Prof. Broadwater, if you're reading this, read this first before you review my code.
+* Some Notes, Things That I Wish I Had Gotten Right
+  - The code doesn't save the user's data to the server correctly. We tried to use PHP to communicate to a database,
+    but it didn't work because permissions weren't. So we just had it save the information to the cache of the user,
+    unfortunately. This failure happened very late in the cycle of the game's development, so we couldn't fit it into
+    the final version.
+  - The design of dagamey wasn't originally supposed to be ~multilevel_lesson~, it was only supposed to be a single
+    quiz at a time. So in order to modify the code to work, I had to set the ~next_question~ element of each lesson
+    to a different thing. This /was/ a genius move, in a very braindead way. Functional programming FTW!
+    /I still wish I had gotten it right the first time though./
+  - General unmaintainability, repetitive code, you know how it is.
+  - Debugging was on an entirely separate level, I was used to a tight testing cycle, where I would add a feature,
+    test a feature, repeat. But this time, since I couldn't really test it anywhere else, because of ~CORS~ errors,
+    we had to test everything live. I mean, /everything/. How can I debug what I cannot see?
+    - This had to be done a day before. Everything needed to be hammered out. I need better time management skills
+      or just plain more time. You only live so long, however.
+  - General implementation details are down below.
 * Structure And Interpretation of dagamey
   dagamey follows a very simple architecture:
   - All asset (eg. audio, video, picture) files are in the ~./Assets~ folder
+  - All lesson information is stored in the ~./Lessons~ folder.
   - All code for the program of dagamey is in ~./dagamey.js~
   - A lesson is stored as an array of JSON that utilizes the ~question(qtype, qdata, qans)~ constructor function
     for each element.
@@ -10,3 +28,7 @@ This was for a project at Towson University, I made a game portion of a website.
   - ~index.html~ is a small program that utilizes dagamey. Try it for yourself!
   - To use this library, put ~<script src="/path/to/dagamey.js"></script>~ in your HTML somewhere. Write your driver
     code in an empty ~<script>~ tag below!
+  - ~interface.js~ handles the code to generate the level selection screen.
+  - ~jquery~ /used/ to be used to load PHP, now it loads JSON directly from the ~./Lessons~ folder.
+  - ~multilevel_lesson~ creates a lesson with multiple levels using a callback to load each level independently.
+    It also does the task of updating the user's progress, but not very well.
