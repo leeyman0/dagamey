@@ -1,7 +1,4 @@
-* Welcome to dagamey
-  Here at Dagamey, inc. we don't really care about our users too much. Other companies are afraid to admit this,
-  but here at Dagamey, we aren't like other companies. By using this software, all users absolve us of any war crimes,
-  illegal multi-level-marketing schema, coercive organ donations, arson, or any crimes that this software may commit.
+This was for a project at Towson University, I made a game portion of a website.
 * Structure And Interpretation of dagamey
   dagamey follows a very simple architecture:
   - All asset (eg. audio, video, picture) files are in the ~./Assets~ folder
